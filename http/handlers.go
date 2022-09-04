@@ -23,7 +23,7 @@ func HandleSave(storage *storages.Storage) gin.HandlerFunc {
 			fmt.Println(err)
 			return
 		}
-		ctx.JSON(200, res)
+		ctx.JSON(200, ctx.Request.Host+ctx.Request.URL.Path + res)
 	}
 }
 
