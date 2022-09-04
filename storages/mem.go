@@ -8,6 +8,12 @@ type memoryStorage struct {
 	data map[string]string
 }
 
+func createMemStorage() *memoryStorage {
+	memStorage := new(memoryStorage)
+	memStorage.data = make(map[string]string)
+	return memStorage
+}
+
 func (mstor *memoryStorage) Store(value string) (string, error) {
 	if !tools.IsURL(value) {
 		return "", &storageError{reason: "The value " + value + " is not URL"}

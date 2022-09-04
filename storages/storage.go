@@ -15,11 +15,11 @@ const (
 func Get(stype Type) (Storage, error) {
 	switch stype {
 	case Memory:
-		memStorage := new(memoryStorage)
-		memStorage.data = make(map[string]string)
+		memStorage := createMemStorage()
 		return memStorage, nil
 	case Database:
-		return nil, nil
+		DBStorage := createDBStorage()
+		return DBStorage, nil
 	default:
 		return nil, &storageError{reason: "Incorrect storage type was provided"}
 	}
