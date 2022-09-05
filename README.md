@@ -2,7 +2,8 @@
 
 ## Description
 
-The application gets the URLs and
+The application saves URL under its hash value and
+returns this URL while passing hash back.
 
 ## Requirements
 
