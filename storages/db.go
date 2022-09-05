@@ -3,10 +3,11 @@ package storages
 import (
 	"context"
 	"fmt"
+	"log"
 	"os"
 
-	"github.com/jackc/pgx/v4"
 	"github.com/danmory/web-hashing-server/tools"
+	"github.com/jackc/pgx/v4"
 )
 
 type databaseStorage struct {
@@ -24,12 +25,12 @@ func createDBStorage() *databaseStorage {
 			os.Getenv("DB_PORT"),
 			os.Getenv("DB_DATABASE")))
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		panic("Cannot connect to database")
 	}
 	_, err = conn.Exec(context.Background(), "CREATE TABLE IF NOT EXISTS Abbreviations (url varchar(2048) PRIMARY KEY, abbreviation varchar(64) NOT NULL)")
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		panic("Cannot create table")
 	}
 	return &databaseStorage{conn: conn}
@@ -48,7 +49,10 @@ func (dbstor *databaseStorage) Store(value string) (string, error) {
 	if exists {
 		return "", &storageError{reason: "The value " + value + " is already added"}
 	}
-	dbstor.conn.Exec(context.Background(), "INSERT INTO Abbreviations VALUES ($1, $2)", value, key)
+	_, err = dbstor.conn.Exec(context.Background(), "INSERT INTO Abbreviations VALUES ($1, $2)", value, key)
+	if err != nil {
+		return "", &storageError{reason: "Error while inserting value" + value}
+	}
 	return key, nil
 }
 

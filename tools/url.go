@@ -1,7 +1,7 @@
 package tools
 
 import (
-	"fmt"
+	"log"
 	"regexp"
 )
 
@@ -10,7 +10,7 @@ const URLRegexp = `[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,
 func IsURL(url string) bool {
 	matched, err := regexp.MatchString(URLRegexp, url)
 	if err != nil {
-		fmt.Printf("Error while validating url %s", url)
+		log.Printf("Error while validating url %s", url)
 		return false
 	}
 	return matched
