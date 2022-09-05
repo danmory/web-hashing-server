@@ -2,11 +2,12 @@ package main
 
 import (
 	"flag"
+	"log"
 
 	"github.com/gin-gonic/gin"
-	"gitlab.com/danmory/web-hashing-server/http"
-	"gitlab.com/danmory/web-hashing-server/storages"
 	"github.com/joho/godotenv"
+	"gitlab.com/danmory/web-hashing-server/controllers"
+	"gitlab.com/danmory/web-hashing-server/storages"
 )
 
 type CLIParams struct {
@@ -14,18 +15,23 @@ type CLIParams struct {
 }
 
 func main() {
-	godotenv.Load()
 	params := parseCLI()
 	storage := selectStorage(params.dFlag)
-
+	defer storage.Close()
 	r := createServer(&storage)
-	r.Run()
+	log.Fatal(r.Run())
+}
+
+func init() {
+	godotenv.Load()
+	log.SetOutput(gin.DefaultWriter)
+	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 }
 
 func createServer(storage *storages.Storage) *gin.Engine {
 	r := gin.Default()
-	r.POST("/", http.HandleSave(storage))
-	r.GET("/:searched", http.HandleRetrieve(storage))
+	r.POST("/", controllers.HandleSave(storage))
+	r.GET("/:searched", controllers.HandleRetrieve(storage, "searched"))
 	return r
 }
 

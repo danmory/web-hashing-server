@@ -33,3 +33,7 @@ func (mstor *memoryStorage) Find(key string) (string, error) {
 	}
 	return value, nil
 }
+
+func (mstor *memoryStorage) Close() error {
+	return nil
+}

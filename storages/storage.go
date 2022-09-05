@@ -3,6 +3,7 @@ package storages
 type Storage interface {
 	Find(string) (string, error)
 	Store(string) (string, error)
+	Close() error
 }
 
 type Type int8

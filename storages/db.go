@@ -63,3 +63,7 @@ func (dbstor *databaseStorage) Find(key string) (string, error) {
 	}
 	return value, nil
 }
+
+func (dbstor *databaseStorage) Close() error {
+	return dbstor.conn.Close(context.Background())
+}
