@@ -14,10 +14,12 @@ type converter[T any] interface {
 	Do(v T) T
 }
 
-type stringConverter struct{}
-
-func (sc *stringConverter) Do(str string) string {
-	return md5Hash(str)
+type stringConverter struct {
+	convertFunc func(string) string
 }
 
-var StringConverter converter[string] = &stringConverter{}
+func (sc *stringConverter) Do(str string) string {
+	return sc.convertFunc(str)
+}
+
+var StringConverter converter[string] = &stringConverter{md5Hash}
