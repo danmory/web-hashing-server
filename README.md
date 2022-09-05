@@ -45,10 +45,6 @@ The application gets the URLs and
 
 3. Access the application on <http://127.0.0.1:8080>
 
-## Tests
-
-In progress...
-
 ## Contacts
 
 Danila Moriakov (d.moriakov@gmail.com)
