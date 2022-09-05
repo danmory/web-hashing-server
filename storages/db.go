@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/jackc/pgx/v4"
-	"gitlab.com/danmory/web-hashing-server/tools"
+	"github.com/danmory/web-hashing-server/tools"
 )
 
 type databaseStorage struct {

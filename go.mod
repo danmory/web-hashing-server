@@ -1,4 +1,4 @@
-module gitlab.com/danmory/web-hashing-server
+module github.com/danmory/web-hashing-server
 
 go 1.19
 

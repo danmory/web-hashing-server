@@ -1,7 +1,7 @@
 package storages
 
 import (
-	"gitlab.com/danmory/web-hashing-server/tools"
+	"github.com/danmory/web-hashing-server/tools"
 )
 
 type memoryStorage struct {

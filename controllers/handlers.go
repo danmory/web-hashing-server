@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"gitlab.com/danmory/web-hashing-server/storages"
+	"github.com/danmory/web-hashing-server/storages"
 )
 
 func HandleSave(storage *storages.Storage) gin.HandlerFunc {

@@ -6,8 +6,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"gitlab.com/danmory/web-hashing-server/controllers"
-	"gitlab.com/danmory/web-hashing-server/storages"
+	"github.com/danmory/web-hashing-server/controllers"
+	"github.com/danmory/web-hashing-server/storages"
 )
 
 type CLIParams struct {
@@ -23,7 +23,10 @@ func main() {
 }
 
 func init() {
-	godotenv.Load()
+	err := godotenv.Load()
+	if err != nil {
+		log.Println(err)
+	}
 	log.SetOutput(gin.DefaultWriter)
 	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 }
