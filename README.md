@@ -8,14 +8,14 @@ The application gets the URLs and
 
 1. GO 1.19
 2. Installed libraries from *go.mod*
-3. (Optional) Docker compose
+3. (Optional) Docker, Docker Compose
 
 ## Usage
 
 1. Clone the repository
 2. Install dependencies
 
-    ``$ go mod tidy``
+    ``$ go mod download``
 
 3. Run Postgres
 
@@ -33,9 +33,17 @@ The application gets the URLs and
 
     `` $ go run . -d ``
 
-## Usage with Docker Compose
+6. Access the application on <http://127.0.0.1:8080>
 
-In progress...
+## Usage with Docker, Docker Compose
+
+1. Initilize *.env* file with settings specified in *.env.example*
+
+2. Start the application
+
+    `` $ docker-compose up -d ``
+
+3. Access the application on <http://127.0.0.1:8080>
 
 ## Tests
 
