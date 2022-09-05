@@ -39,7 +39,7 @@ func (dbstor *databaseStorage) Store(value string) (string, error) {
 	if !tools.IsURL(value) {
 		return "", &storageError{reason: "The value " + value + " is not URL"}
 	}
-	key := tools.TransformString(value)
+	key := tools.StringConverter.Do(value)
 	var exists bool
 	err := dbstor.conn.QueryRow(context.Background(), "SELECT EXISTS(SELECT url, abbreviation FROM Abbreviations where url=$1)", value).Scan(&exists)
 	if err != nil {

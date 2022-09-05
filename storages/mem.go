@@ -18,7 +18,7 @@ func (mstor *memoryStorage) Store(value string) (string, error) {
 	if !tools.IsURL(value) {
 		return "", &storageError{reason: "The value " + value + " is not URL"}
 	}
-	key := tools.TransformString(value)
+	key := tools.StringConverter.Do(value)
 	if _, exists := mstor.data[key]; exists {
 		return "", &storageError{reason: "The value " + value + " is already added"}
 	}
