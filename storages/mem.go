@@ -1,16 +1,17 @@
 package storages
 
 import (
+	"sync"
+
 	"github.com/danmory/web-hashing-server/tools"
 )
 
 type memoryStorage struct {
-	data map[string]string
+	data sync.Map // string -> string
 }
 
 func createMemStorage() *memoryStorage {
 	memStorage := new(memoryStorage)
-	memStorage.data = make(map[string]string)
 	return memStorage
 }
 
@@ -19,19 +20,19 @@ func (mstor *memoryStorage) Store(value string) (string, error) {
 		return "", &storageError{reason: "The value " + value + " is not URL"}
 	}
 	key := tools.StringConverter.Do(value)
-	if _, exists := mstor.data[key]; exists {
+	if _, exists := mstor.data.Load(key); exists {
 		return "", &storageError{reason: "The value " + value + " is already added"}
 	}
-	mstor.data[key] = value
+	mstor.data.Store(key, value)
 	return key, nil
 }
 
 func (mstor *memoryStorage) Find(key string) (string, error) {
-	value, exists := mstor.data[key]
+	value, exists := mstor.data.Load(key)
 	if !exists {
 		return "", &storageError{reason: "The key " + key + " does not exist"}
 	}
-	return value, nil
+	return value.(string), nil
 }
 
 func (mstor *memoryStorage) Close() error {
